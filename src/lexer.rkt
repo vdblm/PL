@@ -12,7 +12,7 @@
            (lexer
             ((:or (:+ (char-range #\0 #\9)) (:: (:+ (char-range #\0 #\9)) #\. (:+ (char-range #\0 #\9)))) (token-posNumber (string->number lexeme)))
             ((:+(:or (char-range #\a #\z) (char-range #\A #\Z))) (token-variable lexeme))
-            ;((:: any-string) (token-string lexeme))
+            ((:: "\"" (:* any-char) "\"") (token-string (substring lexeme 1 (- (string-length lexeme) 1))))
             ("," (token-comma))
             (";" (token-semicolon))
             ("while" (token-while))
@@ -53,7 +53,7 @@
 
 ;test
 (define lex-this (lambda (lexer input) (lambda () (lexer input))))
-(define my-lexer (lex-this dard-lexer (open-input-string "b = 8;a = [2 - 5.56, b, 55, 47];if -a[-b+10] == -55 then a = 5 else a = 6 endif; return a")))
+(define my-lexer (lex-this dard-lexer (open-input-string "m = \"sala25 $m\"; b = 8;a = [2 - 5.56, b, 55, 47];if -a[-b+10] == -55 then a = 5 else a = 6 endif; return a")))
 (my-lexer)
 (my-lexer)
 (my-lexer)
