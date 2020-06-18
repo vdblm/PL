@@ -5,7 +5,7 @@
          (prefix-in : parser-tools/lex-sre)
          parser-tools/yacc)
 
-; ;, while, do, end, if, then, else, endif, variable, return, =, >,
+; ,, ;, while, do, end, if, then, else, endif, variable, return, =, >,
 ; <, ==, !=, -, +, *, /, (, ), posNumber, null, true, false, string, [,
 ; ]
 (define dard-lexer
@@ -13,6 +13,8 @@
             ((:or (:+ (char-range #\0 #\9)) (:: (:+ (char-range #\0 #\9)) #\. (:+ (char-range #\0 #\9)))) (token-posNumber (string->number lexeme)))
             ((:+(:or (char-range #\a #\z) (char-range #\A #\Z))) (token-variable lexeme))
             ;((:: any-string) (token-string lexeme))
+            ("," (token-comma))
+            (";" (token-semicolon))
             ("while" (token-while))
             ("do" (token-do))
             ("end" (token-end))
@@ -42,15 +44,50 @@
             ((eof) (token-EOF))))
 
 (define-tokens a (posNumber variable string))
-(define-empty-tokens b (EOF plus while do end if then else endif
+(define-empty-tokens b (EOF semicolon plus while do end if then 
                             return assign greater less equal
                             unequal minus mult div parO parC
-                            null true false brackO brackC))
+                            null true false brackO brackC else
+                            endif comma))
 
 
 ;test
 (define lex-this (lambda (lexer input) (lambda () (lexer input))))
-(define my-lexer (lex-this dard-lexer (open-input-string "a = 1+2+ 3 +   4")))
+(define my-lexer (lex-this dard-lexer (open-input-string "b = 8;a = [2 - 5.56, b, 55, 47];if -a[-b+10] == -55 then a = 5 else a = 6 endif; return a")))
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
+(my-lexer)
 (my-lexer)
 (my-lexer)
 (my-lexer)
