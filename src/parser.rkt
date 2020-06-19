@@ -23,10 +23,10 @@
                       ((command semicolon unitcommand) (multi-cmd $1 $3))
                       )
                      (unitcommand
-                      ((whilecommand) (list $1))
-                      ((ifcommand) (list $1))
-                      ((assigncommand) (list $1))
-                      ((returncommand) (list $1))
+                      ((whilecommand) (identity $1))
+                      ((ifcommand) (identity $1))
+                      ((assigncommand) (identity $1))
+                      ((returncommand) (identity $1))
                       )
                      (whilecommand
                       ((while exp do command end) (while-unitCmd $2 $4))
@@ -41,19 +41,19 @@
                       ((return exp) (return-unitCmd $2))
                       )
                      (exp
-                      ((aexp) (list $1))
+                      ((aexp) (identity $1))
                       ((aexp greater aexp) (greater-exp $1 $3))
                       ((aexp less aexp) (less-exp $1 $3))
                       ((aexp equal aexp) (equal-exp $1 $3))
                       ((aexp unequal aexp) (unequal-exp $1 $3))
                       )
                      (aexp
-                      ((bexp) (list $1))
+                      ((bexp) (identity $1))
                       ((bexp minus aexp) (subtract-exp $1 $3))
                       ((bexp plus aexp) (plus-exp $1 $3))
                       )
                      (bexp
-                      ((cexp) (list $1))
+                      ((cexp) (identity $1))
                       ((cexp mult bexp) (mult-exp $1 $3))
                       ((cexp div bexp) (div-exp $1 $3))
                       )
@@ -66,11 +66,11 @@
                       ((true) (bool-exp #t))
                       ((false) (bool-exp #f))
                       ((string) (string-exp $1))
-                      ((list) (list-exp $1))
+                      ((list) (identity $1))
                       ((variable listmem) (varList-exp $1 $2))
                       )
                      (list
-                      ((brackO listvalues brackC) (cons $2))
+                      ((brackO listvalues brackC) (list-exp $2))
                       ((brackO brackC) (mt-list-exp))
                       )
                      (listvalues
