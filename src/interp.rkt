@@ -80,8 +80,8 @@
     ((par-exp exp)
      (value-of exp env))
     
-    ;((var-exp var)
-     ;(list (apply-env var) env))
+    ((var-exp var)
+     (list (apply-env var) env))
     
     ((bool-exp bool-arg)
      (list bool-arg env))
