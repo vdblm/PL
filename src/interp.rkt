@@ -81,7 +81,7 @@
      (value-of exp env))
     
     ((var-exp var)
-     (list (apply-env var) env))
+     (list (apply-env var env) env))
     
     ((bool-exp bool-arg)
      (list bool-arg env))
@@ -105,7 +105,7 @@
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
     ((varList-exp var lMem)
-     list((ndim-array-get (apply-env var) (car (value-of lMem env))) env))
+     list((ndim-array-get (apply-env var env) (car (value-of lMem env))) env))
     
     ((single-lMem exp)
      (list (list (car (value-of exp env)) env)))
@@ -115,5 +115,9 @@
     )
   )
 
+(value-of-program "a = 2;
+b = 3;
+c = [a, b-1];
+return 2 / c + 1")
 (provide value-of-program)
 

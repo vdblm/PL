@@ -7,9 +7,6 @@
 (require "lexer.rkt")
 (require "data-types.rkt")
 
-(define-struct num-exp (n))
-(define-struct var-exp (i))
-
 
 (define dard-parser
            (parser
