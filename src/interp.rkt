@@ -111,11 +111,12 @@
      (list (list (car (value-of exp env)) env)))
     
     ((multi-lMem exp lMem)
-     (cons (car (value-of exp env)) (car (value-of lMem env))))
+     ;(cons (car (value-of exp env)) (car (value-of lMem env))))
 
 
      (list (cons (car (value-of exp env)) (car (value-of lMem env))) env))
     )
   )
+
 (provide value-of-program)
 
