@@ -62,7 +62,7 @@
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
     ;((varList-exp var lMem)
-     ;(ndim-array-get (apply-env var) (car (value-of lMem env))))
+     ;list((ndim-array-get (apply-env var) (car (value-of lMem env))) env))
     
     ((single-lMem exp)
      (list (list (car (value-of exp env)) env)))
@@ -71,5 +71,6 @@
      (list (cons (car (value-of exp env)) (car (value-of lMem env))) env))
     )
   )
+
 (provide value-of-program)
 
