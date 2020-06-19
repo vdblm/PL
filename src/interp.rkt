@@ -16,11 +16,11 @@
     ((single-cmd unit-cmd)
      (value-of unit-cmd env))
 
-    ((multi-cmd command unitcommand)
+    ((multi-cmd cmd unit-cmd)
      (begin
-       (define result (value-of command env))
+       (define result (value-of cmd env))
        (if (null? (car result))
-           (value-of unitcommand (cdr result))
+           (value-of unit-cmd (cdr result))
            (list (car result) env))))
 
     ((if-unitCmd exp cmd1 cmd2)
@@ -34,9 +34,9 @@
     ((assign-unitCmd var exp)
      (list null (extend-env var (car (value-of exp env)) env)))
 
-    ((while-unitCmd exp command)
+    ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
-         (value-of command env)
+         (value-of cmd env)
          (list 'EndWhile env)))  ; ???
 
     ((greater-exp exp1 exp2)
@@ -120,4 +120,6 @@ b = 3;
 c = [a, b-1];
 return 2 / c + 1")
 (provide value-of-program)
+
+(evaluate "../samples/a.txt")
 
