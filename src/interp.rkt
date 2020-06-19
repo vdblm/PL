@@ -6,10 +6,10 @@
 
 (define (evaluate path)
   (let ([program (open-input-file path)])
-  (car(value-of (scan&pars program) '()))))
+  (car(value-of (scan&pars program) empty-env))))
 
 (define (value-of-program program)
-   (car(value-of (scan&pars (open-input-string program)) '())))
+   (car(value-of (scan&pars (open-input-string program)) empty-env)))
 
 (define (value-of parser-res env)
   (match parser-res
@@ -20,7 +20,7 @@
      (begin
        (define result (value-of cmd env))
        (if (null? (car result))
-           (value-of unit-cmd (cdr result))
+           (value-of unit-cmd (cadr result))
            (list (car result) env))))
 
     ((if-unitCmd exp cmd1 cmd2)
@@ -118,8 +118,8 @@
 (value-of-program "a = 2;
 b = 3;
 c = [a, b-1];
-return 2 / c + 1")
+return c[1]")
 (provide value-of-program)
 
-(evaluate "../samples/a.txt")
+;(evaluate "../samples/a.txt")
 
