@@ -29,4 +29,4 @@
 (define-struct single-lMem (exp))
 (define-struct multi-lMem (exp lMem))
 
-(provide all-defined-out)
+(provide (all-defined-out))
