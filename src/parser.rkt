@@ -86,12 +86,5 @@
             )
 )
 
-
-;test
-(define lex-this (lambda (lexer input) (lambda () (lexer input))))
-(define my-lexer (lex-this dard-lexer (open-input-string "if a > 2 then b = 3 else c = 2 endif")))
-;(my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer) (my-lexer)
-(let ((parser-res (dard-parser my-lexer))) parser-res)
-;(define parser-res (dard-parser my-lexer))
-
+(provide dard-parser)
 

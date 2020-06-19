@@ -53,9 +53,3 @@
                             endif comma))
 
 (provide dard-lexer a b)
-;test
-;(define lex-this (lambda (lexer input) (lambda () (lexer input))))
-;(define my-lexer (lex-this dard-lexer (open-input-string "m = \"sala25 $m\"; b = 8;a = [2 - 5.56, b, 55, 47];if -a[-b+10] == -55 then a = 5 else a = 6 endif; return a")))
-;(my-lexer)
-;(my-lexer)
-;(my-lexer)
