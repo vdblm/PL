@@ -36,8 +36,11 @@
 
     ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
-         (value-of cmd env)
-         (list null env)))  ; ???
+         (begin
+           (if (null? (car (value-of cmd env)))
+               (value-of parser-res (cadr (value-of cmd env)))
+               (value-of cmd env)))
+         (list null env)))
 
     ((greater-exp exp1 exp2)
      (if (> (car (value-of exp1 env)) (car (value-of exp2 env)))
@@ -115,6 +118,9 @@
     )
   )
 
+(value-of-program "a = 2; b = 3; return b;
+c = [a, b];
+return c")
 (provide value-of-program)
 
 (provide evaluate)
