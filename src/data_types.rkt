@@ -1,82 +1,32 @@
-#lang eopl
+#lang racket
 
-(define-datatype command command?
-    (single-cmd 
-     (unit-cmd unitCommand?))
-    (multi-cmd
-     (cmd command?)
-     (unit-cmd unitCommand?)))
+(define-struct single-cmd (unit-cmd))
+(define-struct multi-cmd (cmd unit-cmd))
+(define-struct while-unitCmd (exp cmd))
+(define-struct if-unitCmd (exp cmd1 cmd2))
+(define-struct assign-unitCmd (var exp))
+(define-struct return-unitCmd (exp))
+(define-struct greater-exp (exp1 exp2))
+(define-struct less-exp (exp1 exp2))
+(define-struct equal-exp (exp1 exp2))
+(define-struct unequal-exp (exp1 exp2))
+(define-struct subtract-exp (exp1 exp2))
+(define-struct plus-exp (exp1 exp2))
+(define-struct mult-exp (exp1 exp2))
+(define-struct div-exp (exp1 exp2))
+(define-struct minus-exp (exp))
+(define-struct par-exp (exp))
+(define-struct posNum-exp (num))
+(define-struct var-exp (var))
+(define-struct bool-exp (bool-arg))
+(define-struct string-exp (str))
+(define-struct mt-list-exp ())
+(define-struct null-exp ())
+(define-struct list-exp (lVal))
+(define-struct varList-exp (var lMem))
+(define-struct single-lVal (exp))
+(define-struct multi-lVal (exp lVal))
+(define-struct single-lMem (exp))
+(define-struct multi-lMem (exp lMem))
 
-(define-datatype unitCommand unitCommand?
-    (while-unitCmd
-      (exp expression?)
-      (cmd command?))
-    (if-unitCmd
-      (exp expression?)
-      (cmd1 command?)
-      (cmd2 command?))
-    (assign-unitCmd
-      (var symbol?)
-      (exp expression?))
-    (return-unitCmd
-      (exp expression?)))
-
-(define-datatype expression expression?
-    (greater-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (less-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (equal-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (unequal-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (subtract-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (plus-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (mult-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (div-exp
-    (exp1 expression?)
-    (exp2 expression?))
-    (minus-exp
-    (exp expression?))
-    (par-exp
-    (exp expression?))
-    (posNum-exp
-    (num number?))
-    (null-exp)
-    (var-exp
-    (var symbol?))
-    (true-exp)
-    (false-exp)
-    (string-exp
-    (str string?))
-    (empty-list-exp)
-    (list-exp
-    (lVal listValues?))
-    (varList-exp
-    (var symbol?)
-    (lMem listMem?)))
-
-(define-datatype listValues listValues?
-    (single-lVal
-    (exp expression?))
-    (mult-lVal
-    (exp expression?)
-    (lVal listValues?)))
-
-(define-datatype listMem listMem?
-    (single-lMem
-    (exp expression?))
-    (mult-lMem
-    (exp expression?)
-    (lMem listMem?)))
-
+(provide all-defined-out)
