@@ -20,10 +20,10 @@
     (env var)))
 
 ;test
-(define env (empty-env))
-(define env1 (extend-env 'a 2 env))
-(define env2 (extend-env 'b 3 env1))
-(define env3 (extend-env 'a 5 env2))
-(apply-env 'a env1)
+;(define env (empty-env))
+;(define env1 (extend-env 'a 2 env))
+;(define env2 (extend-env 'b 3 env1))
+;(define env3 (extend-env 'a 5 env2))
+;(apply-env 'a env1)
 
 (provide (all-defined-out))
