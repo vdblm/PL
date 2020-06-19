@@ -80,8 +80,8 @@
     ((par-exp exp)
      (value-of exp env))
     
-    ;((var-exp var)
-     ;(list (apply-env var) env))
+    ((var-exp var)
+     (list (apply-env var) env))
     
     ((bool-exp bool-arg)
      (list bool-arg env))
@@ -104,16 +104,13 @@
     ((multi-lVal exp lVal)
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
-    ;((varList-exp var lMem)
-     ;list((ndim-array-get (apply-env var) (car (value-of lMem env))) env))
+    ((varList-exp var lMem)
+     list((ndim-array-get (apply-env var) (car (value-of lMem env))) env))
     
     ((single-lMem exp)
      (list (list (car (value-of exp env)) env)))
     
     ((multi-lMem exp lMem)
-     (cons (car (value-of exp env)) (car (value-of lMem env))))
-
-
      (list (cons (car (value-of exp env)) (car (value-of lMem env))) env))
     )
   )
