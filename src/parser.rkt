@@ -5,7 +5,7 @@
          parser-tools/yacc)
 (require racket/include)
 (require "lexer.rkt")
-(require "data_types.rkt")
+(require "data-types.rkt")
 
 (define-struct num-exp (n))
 (define-struct var-exp (i))
@@ -85,6 +85,8 @@
              )
             )
 )
-
-(provide dard-parser)
+(define my-lexer (lambda(program) (lambda() (dard-lexer program))))
+(define (scan&pars program)
+  (dard-parser (my-lexer program)))
+(provide scan&pars)
 
