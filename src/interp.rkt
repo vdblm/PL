@@ -2,8 +2,8 @@
 (require "utils.rkt")
 (require "parser.rkt")
 (require "data-types.rkt")
+(require "env.rkt")
 
-;test
 (define (value-of-program path)
   (let ([program (open-input-file path)])
   (car(value-of (scan&pars program) '()))))
@@ -12,7 +12,14 @@
   (match parser-res
     ((single-cmd unit-cmd)
      (value-of unit-cmd env))
-    
+
+    ((multi-cmd command unitcommand)
+     (begin
+       (define result (value-of command env))
+       (if (null? (car result))
+           (value-of unitcommand (cdr result))
+           (list (car result) env))))
+         
     ((if-unitCmd exp cmd1 cmd2)
      (if (car (value-of exp env))
          (value-of cmd1 env)
@@ -20,11 +27,46 @@
     
     ((return-unitCmd exp)
      (value-of exp env))
+
+    ((assign-unitCmd var exp)
+     (list null (extend-env var (car (value-of exp env)) env)))
+
+    ((while-unitCmd exp command)
+     (if (car (value-of exp env))
+         (value-of command env)
+         (list 'EndWhile env)))  ; ???
     
     ((greater-exp exp1 exp2)
      (if (> (car (value-of exp1 env)) (car (value-of exp2 env)))
          (list #t env)
          (list #f env)))
+
+    ((less-exp exp1 exp2)
+     (if (< (car (value-of exp1 env)) (car (value-of exp2 env)))
+         (list #t env)
+         (list #f env)))
+
+    ((equal-exp exp1 exp2)
+     (if (eqv? (car (value-of exp1 env)) (car (value-of exp2 env)))
+         (list #t env)
+         (list #f env)))
+
+    ((unequal-exp exp1 exp2)
+     (if (eqv? (car (value-of exp1 env)) (car (value-of exp2 env)))
+         (list #f env)
+         (list #t env)))
+
+    ((plus-exp exp1 exp2)
+     (list (+ (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+
+    ((subtract-exp exp1 exp2)
+     (list (- (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+
+    ((mult-exp exp1 exp2)
+     (list (* (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+
+    ((div-exp exp1 exp2)
+     (list (/ (car (value-of exp1 env)) (car (value-of exp2 env))) env))
     
     ((posNum-exp num)
      (list num env))
@@ -67,8 +109,10 @@
     
     ((multi-lMem exp lMem)
      (cons (car (value-of exp env)) (car (value-of lMem env))))
+
+    
     )
   )
 
-(value-of-program "../samples/test1.txt")
+(value-of-program "../samples/a.txt")
 
