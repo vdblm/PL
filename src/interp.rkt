@@ -37,7 +37,7 @@
     ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
          (value-of cmd env)
-         (list 'EndWhile env)))  ; ???
+         (list null env)))  ; ???
 
     ((greater-exp exp1 exp2)
      (if (> (car (value-of exp1 env)) (car (value-of exp2 env)))
@@ -105,21 +105,17 @@
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
     ((varList-exp var lMem)
-     list((ndim-array-get (apply-env var env) (car (value-of lMem env))) env))
+      (list (ndim-array-get (apply-env var env) (car (value-of lMem env))) env))
     
     ((single-lMem exp)
-     (list (list (car (value-of exp env)) env)))
+     (list (list (car (value-of exp env))) env))
     
     ((multi-lMem exp lMem)
      (list (cons (car (value-of exp env)) (car (value-of lMem env))) env))
     )
   )
 
-(value-of-program "a = 2;
-b = 3;
-c = [a, b-1];
-return c[1]")
 (provide value-of-program)
 
-;(evaluate "../samples/a.txt")
+(provide evaluate)
 
