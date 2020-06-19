@@ -3,10 +3,12 @@
 (require "parser.rkt")
 (require "data-types.rkt")
 
-;test
-(define (value-of-program path)
+(define (evaluate path)
   (let ([program (open-input-file path)])
   (car(value-of (scan&pars program) '()))))
+
+(define (value-of-program program)
+   (car(value-of (scan&pars (open-input-string program)) '())))
 
 (define (value-of parser-res env)
   (match parser-res
@@ -35,8 +37,8 @@
     ((par-exp exp)
      (value-of exp env))
     
-    ((var-exp var)
-     (list (apply-env var) env))
+    ;((var-exp var)
+     ;(list (apply-env var) env))
     
     ((bool-exp bool-arg)
      (list bool-arg env))
@@ -54,21 +56,20 @@
      (value-of lVal env))
     
     ((single-lVal exp)
-     (list (car (value-of exp env))))
+     (list (list (car (value-of exp env))) env))
     
     ((multi-lVal exp lVal)
-     (cons (car (value-of exp env)) (car (value-of lVal env))))
+     (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
-    ((varList-exp var lMem)
-     (ndim-array-get (apply-env var) (car (value-of lMem env))))
+    ;((varList-exp var lMem)
+     ;(ndim-array-get (apply-env var) (car (value-of lMem env))))
     
     ((single-lMem exp)
-     (list (car (value-of exp env))))
+     (list (list (car (value-of exp env)) env)))
     
     ((multi-lMem exp lMem)
-     (cons (car (value-of exp env)) (car (value-of lMem env))))
+     (list (cons (car (value-of exp env)) (car (value-of lMem env))) env))
     )
   )
-
-(value-of-program "../samples/test1.txt")
+(provide value-of-program)
 
