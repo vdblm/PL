@@ -147,16 +147,7 @@
       [((listof boolean?) arg) (cond [(> (length arg) 1) (append (list (not (car arg))) (general-minus (cdr arg)))]
                                   [else (list (general-minus (car arg)))])]
       [else (error "General minus error")])))
-      
-; tests
-(define a 2)
-(define b #f)
-(define c (list 1 2 3))
-(define d (list #f #f #t #f))
-(general-minus a)
-(general-minus b)
-(general-minus c)
-(general-minus d)
+    
 
 
 (provide (all-defined-out))
