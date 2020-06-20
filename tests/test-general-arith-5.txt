@@ -1,0 +1,5 @@
+a = [1, 3, 5];
+b = false;
+c = [true, true, false, true];
+d = [true, false, true, true];
+if a[2] > 3 then return b + c else return b * d endif

@@ -50,6 +50,22 @@
                (test-case "sample4"
                           (check-equal? (evaluate "../tests/test-sample4.txt")
                                        35))
+               (test-case "general-arith-1"
+                          (check-equal? (evaluate "../tests/test-general-arith-1.txt")
+                                       (list 5 10 15 20 25)))
+               (test-case "general-arith-2"
+                          (check-equal? (evaluate "../tests/test-general-arith-2.txt")
+                                       (list 2 23 4)))
+               (test-case "general-arith-3"
+                          (check-equal? (evaluate "../tests/test-general-arith-3.txt")
+                                       "MohsenBalazadeh"))
+               (test-case "general-arith-4"
+                          (check-equal? (evaluate "../tests/test-general-arith-4.txt")
+                                       (list "MohsenKhajepour" "VahidKhajepour")))
+               (test-case "general-arith-5"
+                          (check-equal? (evaluate "../tests/test-general-arith-5.txt")
+                                       (list #t #t #f #t)))
+               
               ))
 
 
