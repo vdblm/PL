@@ -1,0 +1,3 @@
+names = ["Mohsen", "Vahid"];
+lastname = "Khajepour";
+return names + lastname
