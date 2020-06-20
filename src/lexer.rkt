@@ -12,7 +12,7 @@
            (lexer
             ((:or (:+ (char-range #\0 #\9)) (:: (:+ (char-range #\0 #\9)) #\. (:+ (char-range #\0 #\9)))) (token-posNumber (string->number lexeme)))
             
-            ((:: "\"" (:* any-char) "\"") (token-string (substring lexeme 1 (- (string-length lexeme) 1))))
+            ((:: "\"" (complement (:: any-string "\"" any-string)) "\"") (token-string (substring lexeme 1 (- (string-length lexeme) 1))))
             ("," (token-comma))
             (";" (token-semicolon))
             ("while" (token-while))
