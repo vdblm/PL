@@ -35,18 +35,18 @@
                           (check-equal? (evaluate "../tests/test-general-compr.txt")
                                         '(#t #t #t #t #f #t #t #t #t #t #t #t #t)))
                           
-               ;(test-case "sample0"
-               ;           (check-equal? (evaluate "../tests/test-sample0.txt")
-               ;                        '(2 2)))               
+               (test-case "sample0"
+                          (check-equal? (evaluate "../tests/test-sample0.txt")
+                                       '(2 2)))               
                (test-case "sample1"
                           (check-equal? (evaluate "../tests/test-sample1.txt")
                                        5))
-               ;(test-case "sample2"
-               ;           (check-equal? (evaluate "../tests/test-sample2.txt")
-               ;                        #t))
-               ;(test-case "sample3"
-               ;           (check-equal? (evaluate "../tests/test-sample3.txt")
-               ;                        '(7 7/2 7/3 7/5 1 55)))
+               (test-case "sample2"
+                          (check-equal? (evaluate "../tests/test-sample2.txt")
+                                       #t))
+               (test-case "sample3"
+                          (check-equal? (evaluate "../tests/test-sample3.txt")
+                                       '(7 7/2 7/3 7/5 1 55)))
                (test-case "sample4"
                           (check-equal? (evaluate "../tests/test-sample4.txt")
                                        35))
