@@ -43,24 +43,16 @@
          (list null env)))
 
     ((greater-exp exp1 exp2)
-     (if (> (car (value-of exp1 env)) (car (value-of exp2 env)))
-         (list #t env)
-         (list #f env)))
+     (list (general-greater (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((less-exp exp1 exp2)
-     (if (< (car (value-of exp1 env)) (car (value-of exp2 env)))
-         (list #t env)
-         (list #f env)))
+     (list (general-less (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((equal-exp exp1 exp2)
-     (if (eqv? (car (value-of exp1 env)) (car (value-of exp2 env)))
-         (list #t env)
-         (list #f env)))
+     (list (general-equal (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((unequal-exp exp1 exp2)
-     (if (eqv? (car (value-of exp1 env)) (car (value-of exp2 env)))
-         (list #f env)
-         (list #t env)))
+     (list (general-unequal (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((plus-exp exp1 exp2)
      (list (+ (car (value-of exp1 env)) (car (value-of exp2 env))) env))
@@ -96,7 +88,7 @@
      (list '() env))
     
     ((null-exp)
-     (list "null" env))
+     (list (null-exp) env))
     
     ((list-exp lVal)
      (value-of lVal env))
@@ -118,9 +110,6 @@
     )
   )
 
-(value-of-program "a = 2; b = 3; return b;
-c = [a, b];
-return c")
 (provide value-of-program)
 
 (provide evaluate)
