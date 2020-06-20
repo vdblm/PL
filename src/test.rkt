@@ -3,6 +3,10 @@
 (require rackunit)
 (require rackunit/text-ui)
 (require "interp.rkt")
+(require "data-types.rkt")
+
+(define-simple-check (check-null-exp? n)
+    (null-exp? n))
 
 (define test-cases
   (test-suite "tests"
@@ -25,6 +29,11 @@
                (test-case "while-3"
                           (check-equal? (evaluate "../tests/test-while-3.txt")
                                         4))
+               (test-case "multi-return and null"
+                          (check-null-exp? (evaluate "../tests/test-multi-return-null.txt")))
+               (test-case "general comparison"
+                          (check-equal? (evaluate "../tests/test-general-compr.txt")
+                                        '(#t #t #t #t #f #t #t #t #t #t #t #t #t)))
                           
                ;(test-case "sample0"
                ;           (check-equal? (evaluate "../tests/test-sample0.txt")

@@ -1,0 +1,14 @@
+a = (2 < 3);
+b = ("aple" < "boo");
+c = ([1, 2, 3] < 4);
+d = (["salam", "bi"] > "a");
+e = ([1, "salam"] == 1);
+f = (2 == 2);
+g = ("hello" == "hello");
+h = (null == null);
+i = ((null != null) == (2 == "salam"));
+j = ([1, 2, 3] == [1, 2, 3]);
+k = ([1, 1, 1] == 1);
+l = (["s", "s"] == "s");
+m = ([null, 1] != null);
+return [a, b, c, d, e, f, g, h, i, j, k, l, m]
