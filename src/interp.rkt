@@ -55,22 +55,22 @@
      (list (general-unequal (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((plus-exp exp1 exp2)
-     (list (+ (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+     (list (general-add (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((subtract-exp exp1 exp2)
-     (list (- (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+     (list (general-subtract (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((mult-exp exp1 exp2)
-     (list (* (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+     (list (general-mult (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((div-exp exp1 exp2)
-     (list (/ (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+     (list (general-div (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
     ((posNum-exp num)
      (list num env))
     
     ((minus-exp exp)
-     (list (-(car(value-of exp env))) env))
+     (list (general-minus (car(value-of exp env))) env))
     
     ((par-exp exp)
      (value-of exp env))
