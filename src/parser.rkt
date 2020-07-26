@@ -33,6 +33,14 @@
                       )
                      (assigncommand
                       ((variable assign exp) (assign-unitCmd $1 $3))
+                      ((variable assign function) (assign-func $1 $3))
+                      ((variable assign call) (assign-call $1 $3))
+                      )
+                     (function
+                      ((funcT parO vars parC cbrackO command cbrackC)(func-def $3 $6))
+                      )
+                     (call
+                      ((variable parO args parC)(func-call $1 $3))
                       )
                      (returncommand
                       ((return exp) (return-unitCmd $2))
@@ -65,6 +73,14 @@
                       ((string) (string-exp $1))
                       ((list) (identity $1))
                       ((variable listmem) (varList-exp $1 $2))
+                      )
+                     (vars
+                      ((variable) (single-var $1))
+                      ((variable comma vars)(multi-var $1 $3))
+                      )
+                     (args
+                      ((exp) (single-arg $1))
+                      ((exp comma args)(multi-arg $1 $3))
                       )
                      (list
                       ((brackO listvalues brackC) (list-exp $2))
