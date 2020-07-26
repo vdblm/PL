@@ -35,27 +35,30 @@
      (list null (extend-env var (car (value-of exp env)) env)))
 ; ######### TODOs
     ((assign-func var vars cmd)
-     (list null (extend-env var (function vars cmd env) env)))
+     (let ((varsList (car (value-of vars env))))
+       (list null (extend-env var (function varsList cmd env) env))))
 
     ((assign-call var1 var2 args)
      (let ((func (apply-env var2 env))
-           (argsVal (value-of args env)))
+           (argsVal (car(value-of args env))))
        (match func
          ((function vars cmd saved-env)
-          (list null (extend-env var1 (value-of cmd (multi-extend-env vars argsVal (extend-env-rec(var2 vars cmd saved-env)))) env)))
+          (begin
+            (display vars)
+          (list null (extend-env var1 (car (value-of cmd (multi-extend-env vars argsVal (extend-env-rec var2 vars cmd saved-env)))) env))))
          (_ (error "wrong function defenition!")))))
+        
+    ((single-var var)
+     (list (list var) env))
     
-;    ((single-var var)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;    
-;    ((multi-var var vars)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;
-;    ((single-arg exp)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;    
-;    ((multi-arg exp args)
-;     (list null (extend-env var (car (value-of exp env)) env)))
+    ((multi-var var vars)
+     (list (cons var (car (value-of vars env))) env))
+    
+    ((single-arg exp)
+     (list (list (car (value-of exp env))) env))
+    
+    ((multi-arg exp args)
+     (list (cons (car (value-of exp env)) (car (value-of args env))) env))
 
     ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
@@ -133,6 +136,15 @@
     )
   )
 
+(value-of-program "listmaker = func(a, b) {
+
+if a == 0 then return [] else a = listmaker(a-1, b); return a + [b] endif
+
+};
+
+b = listmaker(3, 5);
+
+return b")
 (provide value-of-program)
 
 (provide evaluate)
