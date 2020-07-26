@@ -33,14 +33,8 @@
                       )
                      (assigncommand
                       ((variable assign exp) (assign-unitCmd $1 $3))
-                      ((variable assign function) (assign-func $1 $3))
-                      ((variable assign call) (assign-call $1 $3))
-                      )
-                     (function
-                      ((funcT parO vars parC cbrackO command cbrackC)(func-def $3 $6))
-                      )
-                     (call
-                      ((variable parO args parC)(func-call $1 $3))
+                      ((variable assign funcT parO vars parC cbrackO command cbrackC) (assign-func $1 $5 $8))
+                      ((variable assign variable parO args parC) (assign-call $1 $3 $5))
                       )
                      (returncommand
                       ((return exp) (return-unitCmd $2))

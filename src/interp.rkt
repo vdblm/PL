@@ -34,18 +34,17 @@
     ((assign-unitCmd var exp)
      (list null (extend-env var (car (value-of exp env)) env)))
 ; ######### TODOs
-;    ((assign-func var funcDef)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;
-;    ((assign-call var funcCall)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;
-;    ((func-def vars cmd)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;    
-;    ((func-call vars cmd)
-;     (list null (extend-env var (car (value-of exp env)) env)))
-;    
+    ((assign-func var vars cmd)
+     (list null (extend-env var (function vars cmd env) env)))
+
+    ((assign-call var1 var2 args)
+     (let ((func (apply-env var2 env))
+           (argsVal (value-of args env)))
+       (match func
+         ((function vars cmd saved-env)
+          (list null (extend-env var1 (value-of cmd (multi-extend-env vars argsVal (extend-env-rec(var2 vars cmd saved-env)))) env)))
+         (_ (error "wrong function defenition!")))))
+    
 ;    ((single-var var)
 ;     (list null (extend-env var (car (value-of exp env)) env)))
 ;    
