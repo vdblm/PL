@@ -33,6 +33,30 @@
 
     ((assign-unitCmd var exp)
      (list null (extend-env var (car (value-of exp env)) env)))
+; ######### TODOs
+;    ((assign-func var funcDef)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;
+;    ((assign-call var funcCall)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;
+;    ((func-def vars cmd)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;    
+;    ((func-call vars cmd)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;    
+;    ((single-var var)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;    
+;    ((multi-var var vars)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;
+;    ((single-arg exp)
+;     (list null (extend-env var (car (value-of exp env)) env)))
+;    
+;    ((multi-arg exp args)
+;     (list null (extend-env var (car (value-of exp env)) env)))
 
     ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
