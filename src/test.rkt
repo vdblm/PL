@@ -65,6 +65,15 @@
                (test-case "general-arith-5"
                           (check-equal? (evaluate "../tests/test-general-arith-5.txt")
                                        (list #t #t #f #t)))
+               (test-case "function1"
+                          (check-equal? (evaluate "../tests/test-function1.txt")
+                                        2))
+               (test-case "function2"
+                          (check-equal? (evaluate "../tests/test-function2.txt")
+                                        3))
+               (test-case "recursive1"
+                          (check-equal? (evaluate "../tests/test-recursive1.txt")
+                                        (list 5 5 5)))
                
               ))
 

@@ -43,9 +43,7 @@
            (argsVal (car(value-of args env))))
        (match func
          ((function vars cmd saved-env)
-          (begin
-            (display vars)
-          (list null (extend-env var1 (car (value-of cmd (multi-extend-env vars argsVal (extend-env-rec var2 vars cmd saved-env)))) env))))
+          (list null (extend-env var1 (car (value-of cmd (multi-extend-env vars argsVal (extend-env-rec var2 vars cmd saved-env)))) env)))
          (_ (error "wrong function defenition!")))))
         
     ((single-var var)
@@ -136,15 +134,6 @@
     )
   )
 
-(value-of-program "listmaker = func(a, b) {
-
-if a == 0 then return [] else a = listmaker(a-1, b); return a + [b] endif
-
-};
-
-b = listmaker(3, 5);
-
-return b")
 (provide value-of-program)
 
 (provide evaluate)

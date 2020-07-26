@@ -1,0 +1,7 @@
+a = 2;
+f = func(b) {
+return a
+};
+a = 3;
+b = f(2);
+return b
