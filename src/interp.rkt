@@ -30,14 +30,14 @@
     
     ((return-unitCmd exp)
      (value-of exp env))
-
+    ; lazy evaluation
     ((assign-unitCmd var exp)
-     (list null (extend-env var (car (value-of exp env)) env)))
-; ######### TODOs
+     (list null (extend-env var (a-thunk exp env) env)))
+
     ((assign-func var vars cmd)
      (let ((varsList (car (value-of vars env))))
        (list null (extend-env var (function varsList cmd env) env))))
-
+    ; lazy evaluation
     ((assign-call var1 var2 args)
      (let ((func (apply-env var2 env))
            (argsVal (car(value-of args env))))
@@ -52,11 +52,13 @@
     ((multi-var var vars)
      (list (cons var (car (value-of vars env))) env))
     
+    ; lazy evaluation
     ((single-arg exp)
-     (list (list (car (value-of exp env))) env))
+     (list (list (a-thunk exp env)) env))
     
+    ; lazy evaluation
     ((multi-arg exp args)
-     (list (cons (car (value-of exp env)) (car (value-of args env))) env))
+     (list (cons (a-thunk exp env) (car (value-of args env))) env))
 
     ((while-unitCmd exp cmd)
      (if (car (value-of exp env))
@@ -84,8 +86,14 @@
     ((subtract-exp exp1 exp2)
      (list (general-subtract (car (value-of exp1 env)) (car (value-of exp2 env))) env))
 
+    ; lazy-evaluation in multiplication
     ((mult-exp exp1 exp2)
-     (list (general-mult (car (value-of exp1 env)) (car (value-of exp2 env))) env))
+     (let ((lhs (car (value-of exp1 env))))
+       (if (and (number? lhs) (zero? lhs))
+           (list 0 env)
+           (if (false? lhs)
+               (list #f env)
+               (list (general-mult (car (value-of exp1 env)) (car (value-of exp2 env))) env)))))
 
     ((div-exp exp1 exp2)
      (list (general-div (car (value-of exp1 env)) (car (value-of exp2 env))) env))
@@ -99,8 +107,13 @@
     ((par-exp exp)
      (value-of exp env))
     
+    ; lazy evaluation
     ((var-exp var)
-     (list (apply-env var env) env))
+     (let ((val (apply-env var env)))
+       (match val
+         ((a-thunk exp saved-env)
+          (list (car (value-of exp saved-env)) env))
+         (_ (list val env)))))
     
     ((bool-exp bool-arg)
      (list bool-arg env))
@@ -124,7 +137,12 @@
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
     
     ((varList-exp var lMem)
-      (list (ndim-array-get (apply-env var env) (car (value-of lMem env))) env))
+     (let ((val (apply-env var env)))
+       (match val
+         ((a-thunk exp saved-env)
+          (list (ndim-array-get (car (value-of exp saved-env)) (car (value-of lMem env))) env))
+         (_
+          (list (ndim-array-get val (car (value-of lMem env))) env)))))
     
     ((single-lMem exp)
      (list (list (car (value-of exp env))) env))

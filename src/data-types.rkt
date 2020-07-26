@@ -7,6 +7,7 @@
 (define-struct assign-unitCmd (var exp))
 (define-struct assign-func (var vars cmd))
 (define-struct function (vars cmd saved-env))
+(define-struct a-thunk (exp saved-env))
 (define-struct assign-call (var1 var2 args))
 (define-struct single-var (var))
 (define-struct multi-var (var vars))

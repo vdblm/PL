@@ -74,6 +74,9 @@
                (test-case "recursive1"
                           (check-equal? (evaluate "../tests/test-recursive1.txt")
                                         (list 5 5 5)))
+               (test-case "lazy1"
+                          (check-equal? (evaluate "../tests/test-lazy1.txt")
+                                        8))
                
               ))
 
