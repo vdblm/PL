@@ -1,0 +1,136 @@
+pow = func(a, b) {
+	if b == 1 then return a else t = pow(a, b-1); return a * t endif
+};
+
+makelist = func(a, b) {
+	if a > 0 then
+	        c = makelist(a-1, b);
+		t = [b] + c;
+		return t
+		
+	else 
+         	return []
+        endif
+
+};
+
+len = func(a) {
+	if a == [] then 
+		return 0
+	else
+		flag = true;
+		l = 1;
+		tmp = [];
+		while flag do
+			tmp = tmp + [a[l-1]];
+			if a == tmp then
+				flag = false;
+				return l
+			else
+				l = (l + 1)
+			endif
+		end
+	endif
+};
+
+isNumber = func(a) {
+	tmp = [0];
+	tmp = a + tmp;
+	l = len(tmp);
+	if l == 1 then
+		return true
+	else
+		return false
+	endif
+};
+reverse = func(a) {
+	l = len(a);
+	tmp = [];
+	i = l;
+	while (i > 0) do
+		tmp = tmp + [a[i - 1]];
+		i = i - 1
+	end;
+	return tmp
+};
+
+reverseAll = func(a) {
+	t = isNumber(a);
+	if t then
+		return a
+	else
+		l = len(a);
+		tmp = [];
+		i = l;
+		while (i > 0) do
+			x = reverseAll(a[i - 1]);
+			tmp = tmp + [x];
+			i = i - 1
+		end;
+		return tmp
+	endif
+};
+
+merge = func(a, b) {
+	la = len(a);
+	lb = len(b);
+        c = [];
+	ia = 0;
+	ib = 0;
+        while (ia < la)*(ib < lb) do
+		if (a[ia] < b[ib]) then
+			c = c + [a[ia]];
+                	ia = ia+1
+		else
+			c = c + [b[ib]];
+			ib = ib+1
+		endif
+	end;
+	while (ia < la) do
+		c = c + [a[ia]];
+		ia = ia + 1
+	end;
+	while (ib < lb) do
+		c = c + [b[ib]];
+		ib = ib + 1
+	end;
+	return c
+};
+
+even = func(a) {
+	if a == 0 then
+		return true
+	else	
+		tmp = even(a-1);
+		return  -tmp
+	endif
+};
+
+divTwo = func(a, b) {
+	tmp = (a + b) / 2;
+	ev = even(a + b);
+	if ev then
+		return tmp
+	else
+		return (tmp - 0.5)
+	endif
+
+};
+mergeSortHelp = func(a, l, h) {
+	if (l == h) then
+		return [a[l]]
+	else
+		mid = divTwo(l, h);
+		right = mergeSortHelp(a, mid + 1, h);
+		left = mergeSortHelp(a, l, mid);
+		ret = merge (left, right);
+		return ret
+	endif
+	
+};
+mergeSort = func(a) {
+	h = len(a);
+	h = h - 1;
+	tmp = mergeSortHelp(a, 0, h);
+	return tmp
+}

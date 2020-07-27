@@ -41,7 +41,7 @@
 (define (general-equal arg1 arg2)
   (cond
     [(number? arg1) (cond
-                      [(number? arg2) (equal? arg1 arg2)]
+                      [(number? arg2) (= arg1 arg2)]
                       [((listof number?) arg2) (list-elem-cmpr (lambda (a b) (equal? a b)) arg2 arg1)]
                       [else #f])]
     [(string? arg1) (cond
@@ -73,7 +73,7 @@
                                                            [else (list (general-add arg1 (car arg2)))])]
                             [else (error "Invalid operands for General add function")])]
       [((listof number?) arg1) (cond [(number? arg2) (general-add arg2 arg1)]
-                                     [((listof number?) arg2) (append arg1 arg2)]
+                                     [(list? arg2) (append arg1 arg2)]
                                      [else (error "Invalid Operand for General add function")])]
       
       [(boolean? arg1) (cond [(boolean? arg2) (or arg1 arg2)]
@@ -81,7 +81,7 @@
                                                              [else (list (general-add arg1 (car arg2)))])]
                              [else (error "General add error")])]
       [((listof boolean?) arg1) (cond [(boolean? arg2) (general-add arg2 arg1)]
-                                      [((listof boolean?) arg2) (append arg1 arg2)]
+                                      [(list? arg2) (append arg1 arg2)]
                                       [else (error "General add error")])]
       
       [(string? arg1) (cond [(string? arg2) (string-append arg1 arg2)]
@@ -90,8 +90,11 @@
                             [else (error "General add error")])]
       [((listof string?) arg1) (cond [(string? arg2) (cond [(> (length arg1) 1) (append (list (string-append (car arg1) arg2)) (general-add (cdr arg1) arg2))]
                                                            [else (list (general-add (car arg1) arg2))])]
-                                     [((listof string?) arg2) (append arg1 arg2)]
+                                     [(list? arg2) (append arg1 arg2)]
                                      [else (error "General add error")])]
+      [(and (list? arg1) (list? arg2))
+       (append arg1 arg2)]
+      
       [else (error "General add error")])))
 
 (define general-mult

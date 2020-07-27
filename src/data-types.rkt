@@ -6,6 +6,7 @@
 (define-struct if-unitCmd (exp cmd1 cmd2))
 (define-struct assign-unitCmd (var exp))
 (define-struct assign-func (var vars cmd))
+(define-struct load-lib (path))
 (define-struct function (vars cmd saved-env))
 (define-struct a-thunk (exp saved-env))
 (define-struct assign-call (var1 var2 args))

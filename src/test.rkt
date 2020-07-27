@@ -77,6 +77,24 @@
                (test-case "lazy1"
                           (check-equal? (evaluate "../tests/test-lazy1.txt")
                                         8))
+               (test-case "library-pow"
+                          (check-equal? (evaluate "../tests/test-library-pow.txt")
+                                        16))
+               (test-case "library-makelist"
+                          (check-equal? (evaluate "../tests/test-library-makelist.txt")
+                                        (list 4 4 4)))
+               (test-case "library-reverse"
+                          (check-equal? (evaluate "../tests/test-library-reverse.txt")
+                                        (list (list 1 (list 3 4)) (list 3 4) 2 1)))
+               (test-case "library-reverseAll"
+                          (check-equal? (evaluate "../tests/test-library-reverseAll.txt")
+                                        (list (list (list 4 3) 1) (list 4 3) 2 1)))
+               (test-case "library-merge"
+                          (check-equal? (evaluate "../tests/test-library-merge.txt")
+                                        (list -2 0 1 3 4 5 7)))
+               (test-case "library-mergeSort"
+                          (check-equal? (evaluate "../tests/test-library-mergeSort.txt")
+                                        (list -2 0 1 2 4 12)))
                
               ))
 

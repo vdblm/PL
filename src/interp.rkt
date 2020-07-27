@@ -30,6 +30,9 @@
     
     ((return-unitCmd exp)
      (value-of exp env))
+
+    ((load-lib path)
+     (value-of (scan&pars (open-input-file path)) empty-env))
     ; lazy evaluation
     ((assign-unitCmd var exp)
      (list null (extend-env var (a-thunk exp env) env)))
@@ -135,7 +138,8 @@
     
     ((multi-lVal exp lVal)
      (list (cons (car (value-of exp env)) (car (value-of lVal env))) env))
-    
+
+    ; lazy evaluation
     ((varList-exp var lMem)
      (let ((val (apply-env var env)))
        (match val

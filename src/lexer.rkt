@@ -43,6 +43,7 @@
             ("]" (token-brackC))
             ("endif" (token-endif))
             ("func" (token-funcT))
+            ("loadLibrary" (token-loadLib))
             (whitespace (dard-lexer input-port))
             ((eof) (token-EOF))
             ((:+(:or (char-range #\a #\z) (char-range #\A #\Z))) (token-variable lexeme))
@@ -53,6 +54,6 @@
                             return assign greater less equal
                             unequal minus mult div parO parC
                             null true false brackO brackC else
-                            endif comma funcT cbrackO cbrackC))
+                            endif comma funcT cbrackO cbrackC loadLib))
 
 (provide dard-lexer a b)

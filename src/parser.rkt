@@ -24,6 +24,10 @@
                       ((ifcommand) (identity $1))
                       ((assigncommand) (identity $1))
                       ((returncommand) (identity $1))
+                      ((loadlibcommand) (identity $1))
+                      )
+                     (loadlibcommand
+                      ((loadLib parO string parC)(load-lib $3))
                       )
                      (whilecommand
                       ((while exp do command end) (while-unitCmd $2 $4))
