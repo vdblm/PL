@@ -1,0 +1,5 @@
+loadLibrary("../src/library.txt");
+a = [-2, 0, 3, 7];
+b = [1, 4, 5];
+c = merge(a, b);
+return c

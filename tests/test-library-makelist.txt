@@ -1,0 +1,3 @@
+loadLibrary("../src/library.txt");
+b = makelist(3, 4);
+return b

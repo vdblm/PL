@@ -1,0 +1,3 @@
+loadLibrary("../src/library.txt");
+a = mergeSort([2, 4, 0, 1, 12, -2]);
+return a
