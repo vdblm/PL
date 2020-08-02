@@ -149,8 +149,8 @@
       [(boolean? arg) (not arg)]
       [((listof boolean?) arg) (cond [(> (length arg) 1) (append (list (not (car arg))) (general-minus (cdr arg)))]
                                   [else (list (general-minus (car arg)))])]
+      [(list? arg )(cond [(> (length arg) 1) (cons (general-minus (car arg)) (general-minus (cdr arg)))]
+                                  [else (list (general-minus (car arg)))])]
       [else (error "General minus error")])))
-    
-
 
 (provide (all-defined-out))
